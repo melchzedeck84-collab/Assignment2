@@ -1,34 +1,50 @@
-```python
-# Program to implement the 7 basic logic gates
+def _check(*bits):
+    for b in bits:
+        if b not in (0, 1):
+            raise ValueError(f"Logic gate inputs must be 0 or 1, got {b}")
 
-A = int(input("Enter first input (0 or 1): "))
-B = int(input("Enter second input (0 or 1): "))
 
-# NOT gate uses only input A
-print("\nNOT Gate:")
-print("NOT A =", int(not A))
+def AND(a, b):
+    _check(a, b)
+    return a & b
 
-# AND gate
-print("\nAND Gate:")
-print("A AND B =", A & B)
+def OR(a, b):
+    _check(a, b)
+    return a | b
 
-# OR gate
-print("\nOR Gate:")
-print("A OR B =", A | B)
+def NOT(a):
+    _check(a)
+    return 1 - a
 
-# NAND gate
-print("\nNAND Gate:")
-print("A NAND B =", int(not (A & B)))
+def NAND(a, b):
+    _check(a, b)
+    return NOT(AND(a, b))
 
-# NOR gate
-print("\nNOR Gate:")
-print("A NOR B =", int(not (A | B)))
+def NOR(a, b):
+    _check(a, b)
+    return NOT(OR(a, b))
 
-# XOR gate
-print("\nXOR Gate:")
-print("A XOR B =", A ^ B)
+def XOR(a, b):
+    _check(a, b)
+    return a ^ b
 
-# XNOR gate
-print("\nXNOR Gate:")
-print("A XNOR B =", int(not (A ^ B)))
-```
+def XNOR(a, b):
+    _check(a, b)
+    return NOT(XOR(a, b))
+
+
+def print_truth_table():
+    print("A B | AND OR NAND NOR XOR XNOR")
+    print("-" * 42)
+    for a in (0, 1):
+        for b in (0, 1):
+            print(f"{a} {b} |  {AND(a, b)}   {OR(a, b)}   {NAND(a, b)}    {NOR(a, b)}   {XOR(a, b)}    {XNOR(a, b)}")
+    print()
+    print("A | NOT")
+    print("-" * 9)
+    for a in (0, 1):
+        print(f"{a} |  {NOT(a)}")
+
+
+if __name__ == "__main__":
+    print_truth_table()
